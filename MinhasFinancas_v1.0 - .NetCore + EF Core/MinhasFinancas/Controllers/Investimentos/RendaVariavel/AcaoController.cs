@@ -21,47 +21,44 @@ namespace MinhasFinancas.Controllers.Investimentos.RendaVariavel
         }
 
         // GET: Acao
-        public async Task<IActionResult> Index(int? Ano, int? Mes, string BancoCorretora, string CodAcao)
+        public async Task<IActionResult> Index(int? Ano, int? Mes, string BancoCorretora, string CodAcao, string TipoMov, string TpMercado)
         {
             var mesAtual       = Mes != null ? (int)Mes : DateTime.Now.Month;
             var anoAtual       = Ano != null ? (int)Ano : DateTime.Now.Year;
             var codigoAcao     = CodAcao ?? "0";
             var bancoCorretora = BancoCorretora ?? "0";
+            var tipoMovimento  = TipoMov ?? "0";
+            var tipoMercado    = TpMercado ?? "0";
 
             ViewData["Ano"]            = new SelectList(_context.Ano.OrderBy(p => p.Descricao), "Descricao", "Descricao", anoAtual);
             ViewData["Mes"]            = new SelectList(_context.Mes.OrderBy(p => p.NumeroMes), "NumeroMes", "Descricao", mesAtual);
             ViewData["CodAcao"]        = new SelectList(_context.EmpresaListada.OrderBy(p => p.CodigoAcao), "CodigoAcao", "CodigoAcao", codigoAcao);
             ViewData["BancoCorretora"] = new SelectList(_context.Pessoa.Where(p => p.TipoPessoaID == TipoPessoa.BancoCorretora).OrderBy(p => p.nome),
                                                                                 "Pessoa_ID", "nome", bancoCorretora);
+            ViewData["TipoMov"]        = new SelectList(_context.TipoMovimento.OrderBy(p => p.Descricao), "ID", "Descricao", tipoMovimento);
+            ViewData["TpMercado"]      = new SelectList(_context.TipoMercado.OrderBy(p => p.descricao),   "ID", "descricao", tipoMercado);
 
             var application = _context.Acao.Include(a => a.EmpresaListada).Include(a => a.Pessoa).Include(a => a.TipoMercado).Include(a => a.TipoMovimento).ToList();
 
             if (Ano > 0 || Ano == null)
-            {
                 application = application.Where(p => Convert.ToDateTime(p.DataNegociacao).Year == anoAtual).ToList();
-            }
 
             if (Mes > 0 || Mes == null)
-            {
                 application = application.Where(p => Convert.ToDateTime(p.DataNegociacao).Month == mesAtual).ToList();
-            }
 
             if (codigoAcao != "0")
-            {
                 application = application.Where(p => p.EmpresaListada.CodigoAcao == codigoAcao).ToList();
-            }
 
             if (bancoCorretora != "0")
-            {
                 application = application.Where(p => p.Pessoa.Pessoa_ID == Convert.ToInt32(bancoCorretora)).ToList();
-            }
-            
-            return View(application);
 
-            /*
-             var applicationDbContext = _context.Acao.Include(a => a.EmpresaListada).Include(a => a.Pessoa).Include(a => a.TipoMercado).Include(a => a.TipoMovimento);
-            return View(await applicationDbContext.ToListAsync());
-             */
+            if (tipoMovimento != "0")
+                application = application.Where(p => p.TipoMovimento.ID == Convert.ToInt32(tipoMovimento)).ToList();
+
+            if (tipoMercado != "0")
+                application = application.Where(p => p.TipoMercado.ID == Convert.ToInt32(tipoMercado)).ToList();
+
+            return View(application);
         }
 
         // GET: Acao/Details/5
@@ -89,10 +86,10 @@ namespace MinhasFinancas.Controllers.Investimentos.RendaVariavel
         // GET: Acao/Create
         public IActionResult Create()
         {
-            ViewData["EmpresaListadaID"] = new SelectList(_context.EmpresaListada, "ID", "ID");
-            ViewData["PessoaID"] = new SelectList(_context.Pessoa, "Pessoa_ID", "nome");
-            ViewData["TipoMercadoID"] = new SelectList(_context.TipoMercado, "ID", "ID");
-            ViewData["TipoMovimentoID"] = new SelectList(_context.TipoMovimento, "ID", "ID");
+            ViewData["EmpresaListadaID"] = new SelectList(_context.EmpresaListada, "ID", "CodigoAcao");
+            ViewData["PessoaID"]         = new SelectList(_context.Pessoa, "Pessoa_ID", "nome");
+            ViewData["TipoMercadoID"]    = new SelectList(_context.TipoMercado, "ID", "descricao");
+            ViewData["TipoMovimentoID"]  = new SelectList(_context.TipoMovimento, "ID", "Descricao");
             return View();
         }
 
@@ -109,10 +106,10 @@ namespace MinhasFinancas.Controllers.Investimentos.RendaVariavel
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmpresaListadaID"] = new SelectList(_context.EmpresaListada, "ID", "ID", acao.EmpresaListadaID);
-            ViewData["PessoaID"] = new SelectList(_context.Pessoa, "Pessoa_ID", "nome", acao.PessoaID);
-            ViewData["TipoMercadoID"] = new SelectList(_context.TipoMercado, "ID", "ID", acao.TipoMercadoID);
-            ViewData["TipoMovimentoID"] = new SelectList(_context.TipoMovimento, "ID", "ID", acao.TipoMovimentoID);
+            ViewData["EmpresaListadaID"] = new SelectList(_context.EmpresaListada, "ID", "CodigoAcao", acao.EmpresaListadaID);
+            ViewData["PessoaID"]         = new SelectList(_context.Pessoa, "Pessoa_ID", "nome", acao.PessoaID);
+            ViewData["TipoMercadoID"]    = new SelectList(_context.TipoMercado, "ID", "descricao", acao.TipoMercadoID);
+            ViewData["TipoMovimentoID"]  = new SelectList(_context.TipoMovimento, "ID", "Descricao", acao.TipoMovimentoID);
             return View(acao);
         }
 
@@ -129,10 +126,10 @@ namespace MinhasFinancas.Controllers.Investimentos.RendaVariavel
             {
                 return NotFound();
             }
-            ViewData["EmpresaListadaID"] = new SelectList(_context.EmpresaListada, "ID", "ID", acao.EmpresaListadaID);
-            ViewData["PessoaID"] = new SelectList(_context.Pessoa, "Pessoa_ID", "nome", acao.PessoaID);
-            ViewData["TipoMercadoID"] = new SelectList(_context.TipoMercado, "ID", "ID", acao.TipoMercadoID);
-            ViewData["TipoMovimentoID"] = new SelectList(_context.TipoMovimento, "ID", "ID", acao.TipoMovimentoID);
+            ViewData["EmpresaListadaID"] = new SelectList(_context.EmpresaListada, "ID", "CodigoAcao", acao.EmpresaListadaID);
+            ViewData["PessoaID"]         = new SelectList(_context.Pessoa, "Pessoa_ID", "nome", acao.PessoaID);
+            ViewData["TipoMercadoID"]    = new SelectList(_context.TipoMercado, "ID", "descricao", acao.TipoMercadoID);
+            ViewData["TipoMovimentoID"]  = new SelectList(_context.TipoMovimento, "ID", "Descricao", acao.TipoMovimentoID);
             return View(acao);
         }
 
@@ -168,10 +165,10 @@ namespace MinhasFinancas.Controllers.Investimentos.RendaVariavel
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmpresaListadaID"] = new SelectList(_context.EmpresaListada, "ID", "ID", acao.EmpresaListadaID);
-            ViewData["PessoaID"] = new SelectList(_context.Pessoa, "Pessoa_ID", "nome", acao.PessoaID);
-            ViewData["TipoMercadoID"] = new SelectList(_context.TipoMercado, "ID", "ID", acao.TipoMercadoID);
-            ViewData["TipoMovimentoID"] = new SelectList(_context.TipoMovimento, "ID", "ID", acao.TipoMovimentoID);
+            ViewData["EmpresaListadaID"] = new SelectList(_context.EmpresaListada, "ID", "CodigoAcao", acao.EmpresaListadaID);
+            ViewData["PessoaID"]         = new SelectList(_context.Pessoa, "Pessoa_ID", "nome", acao.PessoaID);
+            ViewData["TipoMercadoID"]    = new SelectList(_context.TipoMercado, "ID", "descricao", acao.TipoMercadoID);
+            ViewData["TipoMovimentoID"]  = new SelectList(_context.TipoMovimento, "ID", "Descricao", acao.TipoMovimentoID);
             return View(acao);
         }
 

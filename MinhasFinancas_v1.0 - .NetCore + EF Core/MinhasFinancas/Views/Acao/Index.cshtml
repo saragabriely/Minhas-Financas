@@ -4,56 +4,63 @@
     ViewData["Title"] = "Ações";
 }
 
-<h1 class="titulo-gold titulo-fonte">Ações - Compra/Venda</h1>
+<h1 class="titulo-gold titulo-fonte">Ações - Compra / Venda</h1>
 
 <div class="borda-gold fonte-body div-resumo div-inline-flex-100 div-consulta-acao">
 
-    <div style="display: inline-flex; width: 90%; margin-bottom: 8px;">
+    <div style="display: inline-flex; width: 90%; margin-bottom: 8px; text-align: center;">
 
-        <form action="/Acao/Index?Length=13" method="post" style="width: 100%; padding-top: 10px;">
+        <form action="/Acao/Index?Length=13" method="post" style="width: 100%;">
 
             <div class="div-inline-flex-100">
                 <div>
                     <label for="Ano" class="control-label label-resumo">Ano</label>
-                    <select id="Ano" name="Ano" class="form-control" style="width:85px;" asp-items="ViewBag.Ano">
+                    <select id="Ano" name="Ano" class="form-control" style="width:90px;" asp-items="ViewBag.Ano">
                         <option value="0" selected>Todos</option>
                     </select>
                 </div>
 
                 <div>
                     <label for="Mes" class="control-label label-resumo">Mês</label>
-                    <select id="Mes" name="Mes" class="form-control" style="width:123px;" asp-items="ViewBag.Mes">
+                    <select id="Mes" name="Mes" class="form-control" style="width:120px;" asp-items="ViewBag.Mes">
                         <option value="0" selected>Todos</option>
                     </select>
                 </div>
 
                 <div>
                     <label for="CodAcao" class="control-label label-resumo" style="width: 30px;">Ação</label>
-                    <select id="CodAcao" name="CodAcao" class="form-control" style="width:100px;" asp-items="ViewBag.CodAcao">
+                    <select id="CodAcao" name="CodAcao" class="form-control" style="width:105px;" asp-items="ViewBag.CodAcao">
+                        <option value="0" selected>Todos</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="TipoMov" class="control-label label-resumo">Compra/Venda</label>
+                    <select id="TipoMov" name="TipoMov" class="form-control" style="width: 105px;" asp-items="ViewBag.TipoMov">
+                        <option value="0" selected>Todos</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="TpMercado" class="control-label label-resumo">Tipo Mercado</label>
+                    <select id="TpMercado" name="TpMercado" class="form-control" style="width: 117px;" asp-items="ViewBag.TpMercado">
                         <option value="0" selected>Todos</option>
                     </select>
                 </div>
 
                 <div>
                     <label for="BancoCorretora" class="control-label label-resumo">Banco/Corretora</label>
-                    <select id="BancoCorretora" name="BancoCorretora" class="form-control" style="width: 210px;" asp-items="ViewBag.BancoCorretora">
+                    <select id="BancoCorretora" name="BancoCorretora" class="form-control" style="width: 205px;" asp-items="ViewBag.BancoCorretora">
                         <option value="0" selected>Todos</option>
                     </select>
                 </div>
 
-                <div>
-                    <label for="TipoMov" class="control-label label-resumo">Tipo de Movimento</label>
-                    <select id="TipoMov" name="TipoMov" class="form-control" style="width: 210px;" asp-items="ViewBag.TipoMov">
-                        <option value="0" selected>Todos</option>
-                    </select>
-                </div>
-
-                <input type="submit" value="PESQUISAR" class="botao-pesquisar" style="width: 100px; margin-left: 0px;">
+                <input type="submit" value="PESQUISAR" class="botao-pesquisar" style="width: 102px; margin-left: 10px; margin-top: 20px;">
             </div>
         </form>
     </div>
     <div>
-        <a asp-action="Create" type="button" class="botao-adicionar-receita" style="width: 100px; margin-left: 0px;">NOVO</a>
+        <a asp-action="Create" type="button" class="botao-adicionar-receita" style="width: 102px; margin-left: 0px; margin-top: 20px">NOVO</a>
     </div>
     
 </div>
@@ -64,11 +71,11 @@
             <th class="td-Acao">Ação</th>
             <th class="td-Acao">Movimento</th>
             <th class="td-data">Data de Negociação</th>
-            <th>Valor da Ação</th>
+            <th class="td-Acao">Valor da Ação</th>
             <th class="td-Acao">Quantidade</th>
             <th class="td-Acao">Corretagem</th>
-            <th class="td-Acao">ISS</th>
-            <th style="width: 160px;">Tipo de Mercado</th>
+            <th style="width: 65px;">ISS</th>
+            <th style="width: 120px;">Tipo de Mercado</th>
             <th>Banco/Corretora</th>
             <th class="td-editar">Editar/Excluir</th>
         </tr>
