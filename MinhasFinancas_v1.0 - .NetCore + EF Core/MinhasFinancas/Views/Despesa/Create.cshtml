@@ -1,0 +1,71 @@
+﻿@model MinhasFinancas.Models.Despesa
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="titulo-secundario titulo-fonte">Nova Despesa</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-11">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label">Despesa</label>
+                <input asp-for="Descricao" class="form-control" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+
+            <div class="div-create">
+                <div class="form-group">
+                    <label asp-for="DataVencimento" class="control-label">Data de Vencimento</label>
+                    <input asp-for="DataVencimento" class="form-control" />
+                    <span asp-validation-for="DataVencimento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DataPagamento" class="control-label">Data de Pagamento</label>
+                    <input asp-for="DataPagamento" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="ValorAPagar" class="control-label"> Valor À Pagar</label>
+                    <input asp-for="ValorAPagar" class="form-control" />
+                    <span asp-validation-for="ValorAPagar" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ValorPago" class="control-label">Valor Pago</label>
+                    <input asp-for="ValorPago" class="form-control" />
+                </div>
+            </div>
+
+            <div class="div-create">
+                <div class="form-group">
+                    <label asp-for="CategoriaDespesaID" class="control-label"> Categoria de Despesa</label>
+                    <select asp-for="CategoriaDespesaID" class="form-control" asp-items="ViewBag.CategoriaDespesaID"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FormaPagamentoID" class="control-label">Forma de Pagamento</label>
+                    <select asp-for="FormaPagamentoID" class="form-control" asp-items="ViewBag.FormaPagamentoID"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StatusDespesaID" class="control-label">Status</label>
+                    <select asp-for="StatusDespesaID" class="form-control" asp-items="ViewBag.StatusDespesaID"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PessoaID" class="control-label">Banco / Corretora</label>
+                    <select asp-for="PessoaID" class="form-control" asp-items="ViewBag.PessoaID"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Novo" class="btn btn-primary btn-criar" />
+                <a asp-action="IndexConsulta" type="button" class="btn btn-light btn-voltar">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

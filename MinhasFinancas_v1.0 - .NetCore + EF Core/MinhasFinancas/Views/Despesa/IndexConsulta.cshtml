@@ -1,0 +1,156 @@
+﻿@model IEnumerable<MinhasFinancas.Models.Despesa>
+
+@{
+    ViewData["Title"] = "Index Consulta";
+}
+
+<h1 class="titulo-gold titulo-fonte">Despesas</h1>
+
+<div class="borda-gold fonte-body div-resumo div-inline-flex-100 div-consulta">
+
+    <div  style="display: inline-flex; width: 90%; margin-bottom: 8px;">
+
+        <form action="/Despesa/IndexConsulta?Length=13" method="post" style="width: 100%; padding-top: 10px;">
+
+            <div  class="div-inline-flex-100">
+                <label for="Ano" class="control-label label-resumo">Ano</label>
+                <select id="Ano" name="Ano" class="form-control" asp-items="ViewBag.Ano"></select>
+
+                <label for="Mes" class="control-label label-resumo">Mês</label>
+                <select id="Mes" name="Mes" class="form-control" asp-items="ViewBag.Mes"></select>
+
+                <label for="StDespesa" class="control-label label-resumo">Status</label>
+                <select id="StDespesa" name="StDespesa" class="form-control" asp-items="ViewBag.StDespesa"></select>
+
+                <input type="submit" value="PESQUISAR" class="botao-pesquisar" >
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <a asp-action="Create" type="button" class="botao-adicionar">NOVO</a>
+    </div>
+</div>
+
+<table class="table-resumo">
+    <thead>
+        <tr>
+            <th>Nº total de despesas do mês</th>
+            <th>R$ Total à pagar</th>
+            <th>R$ Total pago</th>
+            <th>R$ Total pendente</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@ViewBag.NroTotalDespesas</td>
+            <td>@ViewBag.ValorTotalAPagar</td>
+            <td>@ViewBag.ValorTotalPago</td>
+            <td>@ViewBag.ValorTotalPendente</td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="table-resumo-categoria">
+    <thead>
+        <tr>
+            <th>Resumo | Categoria</th>
+            <th>Valor à pagar</th>
+            <th>Valor pago</th>
+            <th>% Atual do todo</th>
+            <th>% Ideal</th>
+            <th>Valor Ideal</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Essencial</td>
+            <td>@ViewBag.ValorTotalAPagar_Essencial</td>
+            <td>@ViewBag.ValorTotalAPago_Essencial</td>
+            <td></td>
+            <td>55%</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Estudos</td>
+            <td>@ViewBag.ValorTotalAPagar_Estudos</td>
+            <td>@ViewBag.ValorTotalAPago_Estudos</td>
+            <td></td>
+            <td>5%</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Metas</td>
+            <td>@ViewBag.ValorTotalAPagar_Metas</td>
+            <td>@ViewBag.ValorTotalAPago_Metas</td>
+            <td></td>
+            <td>30%</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Outros</td>
+            <td>@ViewBag.ValorTotalAPagar_Outros</td>
+            <td>@ViewBag.ValorTotalAPago_Outros</td>
+            <td></td>
+            <td>10%</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<table class="table-despesas">
+    <thead>
+        <tr>
+            <th class="td-categoria">Categoria</th>
+            <th>Despesa</th>
+            <th class="td-data">Data Vencto</th>
+            <th class="td-data">Data Pagto</th>
+            <th class="td-valor">Valor À Pagar</th>
+            <th class="td-valor">Valor Pago</th>
+            <th class="td-formaPgto">Forma Pagto</th>
+            <th class="td-status">Status</th>
+            <th class="td-editar">Editar/Excluir</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+         {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoriaDespesa.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @item.DataVencimento.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataPagamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorAPagar)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorPago)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FormaPagamento.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusDespesa.Descricao)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID"><img src="../images/icone-editar.png" class="imagemEditar"></a> 
+
+                    <!--<a asp-action="Edit" asp-route-id="item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="item.ID">Details</a> |
+                    <a asp-action="Delete"  asp-route-id="item.ID">Delete</a>-->
+
+                    <a asp-action="Delete" asp-route-id="@item.ID"><img src="../images/icone-excluir.png" class="imagemExcluir"></a>
+                </td>
+            </tr>
+         }
+    </tbody>
+</table>

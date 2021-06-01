@@ -1,0 +1,96 @@
+﻿@model MinhasFinancas.Models.Despesa
+
+@{
+    ViewData["Title"] = "Editar Despesa";
+}
+
+<h1 class="titulo-secundario titulo-fonte">Editar Despesa</h1>
+
+<hr />
+<div class="row fonte-body">
+    <div class="col-md-11">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label">Despesa</label>
+                <input asp-for="Descricao" class="formcontrol" style="padding-right: 15px;" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="div-editar">
+                <div class="form-group">
+                    <label asp-for="DataVencimento" class="control-label">Data de Vencimento</label>
+                    <input asp-for="DataVencimento" class="formcontrol" />
+                    <span asp-validation-for="DataVencimento" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DataPagamento" class="control-label">Data de Pagamento</label>
+                    <input asp-for="DataPagamento" class="formcontrol" />
+                    <span asp-validation-for="DataPagamento" class="text-danger"></span>
+                </div>
+   
+                <div class="form-group">
+                    <label asp-for="ValorAPagar" class="control-label"> Valor À Pagar</label>
+                    <input asp-for="ValorAPagar" class="formcontrol" />
+                    <span asp-validation-for="ValorAPagar" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ValorPago" class="control-label">Valor Pago</label>
+                    <input asp-for="ValorPago" class="formcontrol" />
+                </div>
+            </div>
+
+            <div class="div-editar">
+                <div class="form-group">
+                    <label asp-for="CategoriaDespesaID" class="control-label">Categoria de Despesa</label>
+                    <select asp-for="CategoriaDespesaID" class="formcontrol" asp-items="ViewBag.CategoriaDespesaID"></select>
+                    <span asp-validation-for="CategoriaDespesaID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FormaPagamentoID" class="control-label">Forma de Pagamento</label>
+                    <select asp-for="FormaPagamentoID" class="formcontrol" asp-items="ViewBag.FormaPagamentoID"></select>
+                    <span asp-validation-for="FormaPagamentoID" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="StatusDespesaID" class="control-label">Status</label>
+                    <select asp-for="StatusDespesaID" class="formcontrol" asp-items="ViewBag.StatusDespesaID"></select>
+                    <span asp-validation-for="StatusDespesaID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PessoaID" class="control-label">Banco/Corretora</label>
+                    <select asp-for="PessoaID" class="formcontrol" asp-items="ViewBag.PessoaID"></select>
+                    <span asp-validation-for="PessoaID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="div-editar">
+                <div class="form-group fonte-body">
+                    <label asp-for="DataCadastro" class="control-label">Data de Cadastro</label>
+                    <input asp-for="DataCadastro" class="formcontrol" disabled />
+                </div>
+                <div class="form-group fonte-body">
+                    <label asp-for="DataUltimaAtualizacao" class="control-label">Dt. Última Ataulização</label>
+                    <input asp-for="DataUltimaAtualizacao" class="formcontrol" disabled />
+                </div>
+            </div>
+            
+            <div style="display: inline-flex;">
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="btn btn-success btn-salvar" />
+                </div>
+                <div>
+                    <a asp-action="IndexConsulta" type="button" class="btn btn-light btn-voltar" >Voltar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,80 @@
+﻿@model MinhasFinancas.Models.Pessoa
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="titulo-secundario titulo-fonte">Editar Pessoa</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-11">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Pessoa_ID" />
+
+            <div class="div-editar">
+                <div class="form-group" style="width: 33%;">
+                    <label asp-for="nome" class="control-label">Nome Completo</label>
+                    <input asp-for="nome" class="form-control" />
+                    <span asp-validation-for="nome" class="text-danger"></span>
+                </div>
+
+                <div class="form-group" style="width: 33%;">
+                    <label asp-for="documento" class="control-label">CPF/CNPJ</label>
+                    <input asp-for="documento" class="form-control" />
+                    <span asp-validation-for="documento" class="text-danger"></span>
+                </div>
+
+                <div class="form-group div-campos-form margin-left" style="width: 33%;">
+                    <label asp-for="TipoPessoaID" class="control-label">Tipo de Pessoa</label>
+
+                    <select id="selectIdiomaOriginal" asp-for="TipoPessoaID" class="form-control">
+
+                        <option value="@ViewBag.TipoPessoaID"> @ViewBag.TipoPessoa </option>
+
+                        @if (ViewBag.LstTipoPessoa != null)
+                         {
+                            @foreach (TipoPessoa item in ViewBag.LstTipoPessoa)
+                             {
+                                <option value="@item.ID"> @item.Descricao </option>
+                             }
+                         }
+                    </select>
+                </div>
+            </div>
+            <div class="div-editar">
+                <div class="form-group" style="width: 33%;">
+                    <label asp-for="dataCadastro" class="control-label">Data de cadastro</label>
+                    <input asp-for="dataCadastro" class="form-control" disabled />
+                </div>
+
+                <div class="form-group" style="width: 33%;">
+                    <label asp-for="dataUltimaAlteracao" class="control-label">Data da útima alteração</label>
+                    <input asp-for="dataUltimaAlteracao" class="form-control" disabled />
+                </div>
+
+
+                <div class="form-group form-check" style="width: 33%;">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="flagCadastroAtivo" /> Cadastro ativo
+                    </label>
+                </div>
+            </div>
+
+            <div style="display: inline-flex;">
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="btn btn-success btn-salvar" />
+                </div>
+                <div>
+                    <a asp-action="Index" type="button" class="btn btn-light btn-voltar">Voltar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

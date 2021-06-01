@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MinhasFinancas.Models.Conta>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Banco/Corretora</th>
+            <th>Tipo de Conta</th>
+            <th>Agencia</th>
+            <th>Conta</th>
+            <th>Saldo em conta </th>
+            <th>Data de cadastro</th>
+            <th>Última Atualização</th>
+            <th>Conta ativa</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pessoa.nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoConta.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Agencia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContaBancaria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaldoEmConta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataCadastro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataUltimaAtualizacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.flagAtivo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <!--<a asp-action="Details" asp-route-id="item.ID">Details</a> |-->
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

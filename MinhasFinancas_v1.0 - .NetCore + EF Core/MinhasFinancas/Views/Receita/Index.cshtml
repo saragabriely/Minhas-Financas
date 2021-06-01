@@ -1,0 +1,115 @@
+﻿@model IEnumerable<MinhasFinancas.Models.Receita>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="titulo-gold titulo-fonte">Receitas</h1>
+
+<div class="borda-gold fonte-body div-resumo div-inline-flex-100 div-consulta-receita">
+
+    <div style="display: inline-flex; width: 90%; margin-bottom: 8px;">
+
+        <form action="/Receita/Index?Length=13" method="post" style="width: 100%; padding-top: 10px;">
+
+            <div class="div-inline-flex-100">
+                <label for="Ano" class="control-label label-resumo">Ano</label>
+                <select id="Ano" name="Ano" class="form-control" style="width:11.5%;" asp-items="ViewBag.Ano"></select>
+
+                <label for="Mes" class="control-label label-resumo">Mês</label>
+                <select id="Mes" name="Mes" class="form-control" style="width:123px;" asp-items="ViewBag.Mes"></select>
+
+                <label for="TpReceita" class="control-label label-resumo" style="width: 115px;">Tipo de Receita</label>
+                <select id="TpReceita" name="TpReceita" class="form-control" style="width:123px;" asp-items="ViewBag.TpReceita"></select>
+
+                <label for="StReceita" class="control-label label-resumo">Status</label>
+                <select id="StReceita" name="StReceita" class="form-control" asp-items="ViewBag.StReceita"></select>
+
+                <input type="submit" value="PESQUISAR" class="botao-pesquisar">
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <a asp-action="Create" type="button" class="botao-adicionar-receita">NOVO</a>
+    </div>
+</div>
+
+<table class="table-resumo">
+    <thead>
+        <tr>
+            <th>Nº total de receitas do mês</th>
+            <th>R$ Total à receber</th>
+            <th>R$ Total recebido</th>
+            <th>R$ Total pendente</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@ViewBag.NroTotalReceitas</td>
+            <td>@ViewBag.ValorTotalAReceber</td>
+            <td>@ViewBag.ValorTotalRecebido</td>
+            <td>@ViewBag.ValorTotalPendente</td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="table-receitas">
+    <thead>
+        <tr>
+            <th class="td-pagador">Pagador</th>
+            <th>Descrição</th>
+            <th class="td-tipo-receita">Tipo de Receita</th>
+            <th class="td-data">Previsão de Recebimento</th>
+            <th class="td-data">Data de Receb.</th>
+            <th class="td-valor">Valor À Receber</th>
+            <th class="td-valor">Valor Recebido</th>
+            <th class="td-formaRecbto">Forma de Recebimento</th>
+            <th class="td-status-receita">Status</th>
+            <th class="td-editar">Editar/Excluir</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pessoa.nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoReceita.Descricao)
+                </td>
+                <td>
+                    @item.DataPrevistaRecebimento.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataDeRecebimento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorAReceber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorRecebido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FormaRecebimento.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusReceita.Descricao)
+                </td>
+                
+                <td>
+                    <a asp-action="Edit"   asp-route-id="@item.ID"><img src="../images/icone-editar.png" class="imagemEditar"></a>
+                    <a asp-action="Delete" asp-route-id="@item.ID"><img src="../images/icone-excluir.png" class="imagemExcluir"></a>
+
+                    <!--<a asp-action="Edit" asp-route-id="item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="item.ID">Delete</a>-->
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

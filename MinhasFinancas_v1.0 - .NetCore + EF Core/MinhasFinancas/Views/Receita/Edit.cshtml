@@ -1,0 +1,92 @@
+﻿@model MinhasFinancas.Models.Receita
+
+@{
+    ViewData["Title"] = "Editar Receita";
+}
+
+<h1 class="titulo-secundario titulo-fonte">Editar Receita</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-11">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label">Receita</label>
+                <input asp-for="Descricao" class="form-control" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+
+            <div class="div-editar">
+                <div class="form-group">
+                    <label asp-for="ValorAReceber" class="control-label">Valor À Receber</label>
+                    <input asp-for="ValorAReceber" class="form-control" />
+                    <span asp-validation-for="ValorAReceber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ValorRecebido" class="control-label">Valor Recebido</label>
+                    <input asp-for="ValorRecebido" class="form-control" />
+                    <span asp-validation-for="ValorRecebido" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PessoaID" class="control-label">Fonte de Receita</label>
+                    <select asp-for="PessoaID" class="form-control" asp-items="ViewBag.PessoaID"></select>
+                    <span asp-validation-for="PessoaID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TipoReceitaID" class="control-label">tipo de Receita</label>
+                    <select asp-for="TipoReceitaID" class="form-control" asp-items="ViewBag.TipoReceitaID"></select>
+                    <span asp-validation-for="TipoReceitaID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="div-editar">
+                <div class="form-group">
+                    <label asp-for="FormaRecebimentoID" class="control-label">Forma de Recebimento</label>
+                    <select asp-for="FormaRecebimentoID" class="form-control" asp-items="ViewBag.FormaRecebimentoID"></select>
+                    <span asp-validation-for="FormaRecebimentoID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StatusReceitaID" class="control-label">Status</label>
+                    <select asp-for="StatusReceitaID" class="form-control" asp-items="ViewBag.StatusReceitaID"></select>
+                    <span asp-validation-for="StatusReceitaID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DataPrevistaRecebimento" class="control-label">Previsão de Recebimento</label>
+                    <input asp-for="DataPrevistaRecebimento" class="form-control" />
+                    <span asp-validation-for="DataPrevistaRecebimento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DataDeRecebimento" class="control-label">Data de Recebimento</label>
+                    <input asp-for="DataDeRecebimento" class="form-control" />
+                    <span asp-validation-for="DataDeRecebimento" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="div-editar">
+                <div class="form-group">
+                    <label asp-for="DataCadastro" class="control-label">Data de cadastro</label>
+                    <input asp-for="DataCadastro" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+                    <label asp-for="DataUltimaAtualizacao" class="control-label">Data última atualização</label>
+                    <input asp-for="DataUltimaAtualizacao" class="form-control" disabled />
+                </div>
+            </div>
+
+            <div style="display: inline-flex;">
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="btn btn-success btn-salvar" />
+                </div>
+                <div>
+                    <a asp-action="Index" type="button" class="btn btn-light btn-voltar">Voltar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

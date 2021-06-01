@@ -1,0 +1,67 @@
+﻿@model MinhasFinancas.Models.Despesa
+
+@{
+    ViewData["Title"] = "Excluir Despesa";
+}
+
+<h1 class="titulo-secundario titulo-fonte">Excluir Despesa</h1>
+
+<h4>Confirma a exclusão desse registro?</h4>
+
+<hr />
+<div class="row fonte-body">
+    <div class="col-md-11">
+        <div class="form-group">
+            <label class="label-coluna">Descrição</label>
+            <label class="col-sm-12 label-informacoes"> @Html.DisplayFor(model => model.Descricao) </label>
+        </div>
+
+        <div class="div-editar">
+            <div class="form-group">
+                <label class="label-coluna">Data de Vencimento</label>
+                <label class="col-sm-12 label-informacoes"> @Html.DisplayFor(model => model.DataVencimento) </label>
+            </div>
+
+            <div class="form-group">
+                <label class="label-coluna">Data de Pagamento</label>
+                <label class="col-sm-12 label-informacoes">  @Html.DisplayFor(model => model.DataPagamento) </label>
+            </div>
+
+            <div class="form-group">
+                <label class="label-coluna">Valor À Pagar</label>
+                <label class="col-sm-12 label-informacoes"> @Html.DisplayFor(model => model.ValorAPagar) </label>
+            </div>
+            <div class="form-group">
+                <label class="label-coluna"> Valor Pago </label>
+                <label class="col-sm-12 label-informacoes"> @Html.DisplayFor(model => model.ValorPago) </label>
+            </div>
+        </div>
+
+        <div class="div-editar">
+            <div class="form-group">
+                <label class="label-coluna"> Categoria de Despesa </label>
+                <label class="col-sm-12 label-informacoes"> @Html.DisplayFor(model => model.CategoriaDespesa.Descricao) </label>
+            </div>
+            <div class="form-group">
+                <label class="label-coluna"> Forma de Pagamento </label>
+                <label class="col-sm-12 label-informacoes"> @Html.DisplayFor(model => model.FormaPagamento.Descricao) </label>
+            </div>
+
+            <div class="form-group">
+                <label class="label-coluna">Status</label>
+                <label class="col-sm-12 label-informacoes"> @Html.DisplayFor(model => model.StatusDespesa.Descricao) </label>
+            </div>
+            <div class="form-group">
+                <label class="label-coluna">Banco/Corretora</label>
+                <label class="col-sm-12 label-informacoes"> @Html.DisplayFor(model => model.Pessoa.nome) </label>
+            </div>
+        </div>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="ID" />
+            <input type="submit" value="Delete" class="btn btn-danger btn-cancelar" /> 
+            <a asp-action="IndexConsulta" type="button" class="btn btn-light btn-voltar">Voltar</a>
+        </form>
+    </div>
+</div>
+

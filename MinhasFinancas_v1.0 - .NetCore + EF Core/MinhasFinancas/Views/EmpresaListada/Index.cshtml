@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MinhasFinancas.Models.Investimentos.RendaVariavel.EmpresaListada>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="titulo-gold titulo-fonte">Empresas Listadas</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeDePregao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoAcao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SetorEmpresa)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeDePregao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoAcao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SetorEmpresa.descricao)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

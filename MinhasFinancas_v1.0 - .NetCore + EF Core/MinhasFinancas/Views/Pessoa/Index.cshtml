@@ -1,0 +1,70 @@
+﻿@model IEnumerable<MinhasFinancas.Models.Pessoa>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="titulo-gold titulo-fonte">Cadastro de Pessoa</h1>
+
+<div class="borda-gold fonte-body div-resumo div-inline-flex-100 div-consulta" >
+
+    <div style="display: inline-flex; width: 90%; margin-bottom: 8px;">
+
+        <form action="/Pessoa/Index" method="post" style="width: 100%; padding-top: 10px;">
+
+            <div class="div-inline-flex-100">
+
+                <label for="NomePesquisa" class="control-label label-resumo">Nome</label>
+                <input id="NomePesquisa" name="NomePesquisa" class="form-control div-consulta-input" asp-items="ViewBag.NomePesquisa" style="width:40%;" />
+
+                <label for="TpPessoa" class="control-label label-resumo"style="width: 10%;">Tipo Pessoa</label>
+                <select id="TpPessoa" name="TpPessoa" class="form-control"  asp-items="ViewBag.TpPessoa" ></select>
+
+                <input type="submit" value="PESQUISAR" class="botao-pesquisar">
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <a asp-action="Create" type="button" class="botao-adicionar">NOVO</a>
+    </div>
+</div>
+
+<table class="table-despesas">
+    <thead>
+        <tr>
+            <th>Nome Completo</th>
+            <th>CPF/CNPJ</th>
+            <th>Tipo de Pessoa</th>
+            <!--<th>Cadastro Ativo</th>-->
+            <th class="td-editar">Editar/Excluir</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.documento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoPessoa.Descricao)
+                </td>
+                <!--<td>
+                    Html.DisplayFor(modelItem => item.flagCadastroAtivo)
+                </td>-->
+                <td>
+                    <a asp-action="Edit"   asp-route-id="@item.Pessoa_ID"><img src="../images/icone-editar.png" class="imagemEditar"></a>
+                    <a asp-action="Delete" asp-route-id="@item.Pessoa_ID"><img src="../images/icone-excluir.png" class="imagemExcluir"></a>
+
+                    <!--<a asp-action="Edit" asp-route-id="item.Pessoa_ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="item.Pessoa_ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="item.Pessoa_ID">Delete</a>-->
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

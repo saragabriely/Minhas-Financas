@@ -1,0 +1,56 @@
+﻿@model MinhasFinancas.Models.Pessoa
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1 class="titulo-secundario titulo-fonte">Excluir Pessoa</h1>
+
+<h4>Confirma a exclusão desse registro?</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-11">
+
+        <div class="div-editar">
+            <div class="form-group" style="width: 33%">
+                <label class="label-coluna">Nome Completo</label>
+                <label class="col-sm-12 label-informacoes"> @Html.DisplayFor(model => model.nome) </label>
+            </div>
+
+            <div class="form-group" style="width: 33%">
+                <label class="label-coluna">CPF / CNPJ</label>
+                <label class="col-sm-12 label-informacoes"> @Html.DisplayFor(model => model.documento) </label>
+            </div>
+
+            <div class="form-group" style="width: 33%">
+                <label class="label-coluna">Tipo de Pessoa</label>
+                <label class="col-sm-12 label-informacoes"> @Html.DisplayFor(model => model.TipoPessoa.Descricao) </label>
+            </div>
+        </div>
+        <div class="div-editar">
+
+            <div class="form-group" style="width: 33%">
+                <label class="label-coluna">Data de cadastro</label>
+                <label class="col-sm-12 label-informacoes"> @Html.DisplayFor(model => model.dataCadastro) </label>
+            </div>
+
+            <div class="form-group" style="width: 33%">
+                <label class="label-coluna">Data da útima alteração</label>
+                <label class="col-sm-12 label-informacoes"> @Html.DisplayFor(model => model.dataUltimaAlteracao) </label>
+            </div>
+
+            <div class="form-group form-check" style="width: 33%;">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="flagCadastroAtivo" disabled/> Cadastro ativo
+                </label>
+            </div>
+        </div>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Pessoa_ID" />
+            <input type="submit" value="Delete" class="btn btn-danger btn-cancelar" />
+            <a asp-action="Index" type="button" class="btn btn-light btn-voltar">Voltar</a>
+        </form>
+    </div>
+</div>
